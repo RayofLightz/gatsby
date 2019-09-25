@@ -2,7 +2,7 @@
 
 
 [[projects]]
-  name = "github.com/bnagy/gapstone"
+  name = "github.com/knightsc/gapstone"
   packages = ["."]
   revision = "c8ce2e4cbb4a79435fdfead04377f984d51beab9"
   version = "3.0.3"
@@ -10,6 +10,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "fb27cc002775e3e2e86eb3ceb75e6f0f90efccd278cabff155e3578c7ff83676"
+  inputs-digest = "eb2d23be873f816eb53ed78d5ad8b4d165cfcc3fa2ad6d1a5b279fc4f02758a2"
   solver-name = "gps-cdcl"
   solver-version = 1

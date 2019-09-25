@@ -8,7 +8,7 @@ import (
 	"flag"
 	"fmt"
 	"reflect"
-    "github.com/bnagy/gapstone"
+    "github.com/knightsc/gapstone"
 )
 
 func SectionsNames(f *pe.File) []string {
