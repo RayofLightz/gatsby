@@ -24,7 +24,7 @@ func CapDisasm(f *pe.Section){
         //Reads section data of .text
         //Then runs it through the capstone decompiler
         //The gapstone frontend for capstones docs and examples can be
-        //Found at https://github.com/bnagy/gapstone
+        //Found at https://github.com/knightsc/gapstone
         //CS_ARCH_X86 supports both x86 and x64 disasmebly
         engine, err := gapstone.New(gapstone.CS_ARCH_X86, gapstone.CS_MODE_64)
         if err != nil{
