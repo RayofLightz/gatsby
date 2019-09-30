@@ -7,8 +7,8 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"github.com/knightsc/gapstone"
 	"reflect"
-    "github.com/knightsc/gapstone"
 )
 
 func SectionsNames(f *pe.File) []string {
@@ -20,39 +20,38 @@ func SectionsNames(f *pe.File) []string {
 	return return_array
 }
 
-func CapDisasm(f *pe.Section){
-        //Reads section data of .text
-        //Then runs it through the capstone decompiler
-        //The gapstone frontend for capstones docs and examples can be
-        //Found at https://github.com/knightsc/gapstone
-        //CS_ARCH_X86 supports both x86 and x64 disasmebly
-        engine, err := gapstone.New(gapstone.CS_ARCH_X86, gapstone.CS_MODE_64)
-        if err != nil{
-                fmt.Println(err)
-                return
-        }
-        code, err := f.Data()
-        if err != nil{
-                fmt.Println(err)
-                return
-        }
-        //The disassemly "magic"
-        //Addr is just used to make the decompile more pretty
-        Addr := f.SectionHeader.VirtualAddress
-        ins, err := engine.Disasm(
-                code,
-                uint64(Addr),
-                0)
-        if err != nil{
-                fmt.Println(err)
-                return
-        }
-        for _, insn := range ins{
-                fmt.Printf("0x%x [> %s %s\n", insn.Address, insn.Mnemonic, insn.OpStr)
-        }
+func CapDisasm(f *pe.Section) {
+	//Reads section data of .text
+	//Then runs it through the capstone decompiler
+	//The gapstone frontend for capstones docs and examples can be
+	//Found at https://github.com/knightsc/gapstone
+	//CS_ARCH_X86 supports both x86 and x64 disasmebly
+	engine, err := gapstone.New(gapstone.CS_ARCH_X86, gapstone.CS_MODE_64)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	code, err := f.Data()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	//The disassemly "magic"
+	//Addr is just used to make the decompile more pretty
+	Addr := f.SectionHeader.VirtualAddress
+	ins, err := engine.Disasm(
+		code,
+		uint64(Addr),
+		0)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	for _, insn := range ins {
+		fmt.Printf("0x%x [> %s %s\n", insn.Address, insn.Mnemonic, insn.OpStr)
+	}
 
 }
-
 
 func dump_section(f *pe.Section) {
 	// Reads section data into a byte array
@@ -138,7 +137,7 @@ func main() {
 	var Display_Coff bool
 	var Display_File bool
 	var Display_Section_Dump string
-    var Display_Dis bool
+	var Display_Dis bool
 
 	// Parse program flags
 	flag.StringVar(&file, "FileName", "", "pe file to open")
@@ -146,7 +145,7 @@ func main() {
 	flag.BoolVar(&Display_ImportedSyms, "ImportedSymbols", false, "Shows the imported symbols of the binary")
 	flag.BoolVar(&Display_Coff, "ShowCoff", false, "Shows the names of symbols with names greater than 8 characters")
 	flag.BoolVar(&Display_File, "ShowFile", false, "Shows details about the file")
-    flag.BoolVar(&Display_Dis, "DisAsm", false, "Runs a capstone disassembler on .text section")
+	flag.BoolVar(&Display_Dis, "DisAsm", false, "Runs a capstone disassembler on .text section")
 	flag.StringVar(&Display_Section_Dump, "DumpSection", "", "Section to dump")
 	flag.Parse()
 
@@ -190,8 +189,8 @@ func main() {
 		}
 		dump_section(sec)
 	}
-    if Display_Dis == true{
-        CapDisasm(pe_file.Section(".text"))
-    }
+	if Display_Dis == true {
+		CapDisasm(pe_file.Section(".text"))
+	}
 	pe_file.Close()
 }
