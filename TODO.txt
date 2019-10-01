@@ -1,0 +1,2 @@
+1.) finish x64 decompile 
+2.) start working on x32 decompile
