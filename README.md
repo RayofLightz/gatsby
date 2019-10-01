@@ -1,6 +1,6 @@
 # Gatsby
 
-Gatsby is a cross platform for PE analysis tool.
+Gatsby is a cross platform PE analysis tool.
 
 ## Installation
 
